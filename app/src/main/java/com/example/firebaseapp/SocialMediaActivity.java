@@ -67,6 +67,7 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
     private ArrayAdapter adapter;
     private ArrayList<String> uids;
     private String imageDownloadLink;
+    private ActivityResultLauncher<Intent> someActivityResultLauncher;
 
 
     @Override
@@ -104,7 +105,21 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-
+        someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        Uri chosenImageData = data.getData();
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), chosenImageData);
+                            postImageView.setImageBitmap(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
 
 
 
@@ -178,31 +193,11 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
         else if (Build.VERSION.SDK_INT >= 23){
             if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[] {android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
-            } else{
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 1000);
-//                ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-//                        new ActivityResultContracts.StartActivityForResult(),
-//                        new ActivityResultCallback<ActivityResult>() {
-//                            @Override
-//                            public void onActivityResult(ActivityResult result) {
-//                                if (result.getResultCode() == Activity.RESULT_OK) {
-//                                    // There are no request codes
-//                                    Intent data = result.getData();
-//
-//                                    Uri chosenImageData = data.getData();
-//                                    try{
-//                                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), chosenImageData);
-//                                        postImageView.setImageBitmap(bitmap);
-//
-//                                    } catch (Exception e){
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                }
-//                            }
-//                        });
             }
+
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                someActivityResultLauncher.launch(intent);
+
         }
 
 
@@ -217,22 +212,22 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //this was there i  if but caused errors:  && requestCode == RESULT_OK
-        if(requestCode==1000 && data != null){
-            Uri chosenImageData = data.getData();
-            try{
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), chosenImageData);
-                postImageView.setImageBitmap(bitmap);
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //this was there i  if but caused errors:  && requestCode == RESULT_OK
+//        if(requestCode==1000 && data != null){
+//            Uri chosenImageData = data.getData();
+//            try{
+//                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), chosenImageData);
+//                postImageView.setImageBitmap(bitmap);
+//
+//            } catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private void uploadImageToServer(){
 
@@ -251,7 +246,9 @@ public class SocialMediaActivity extends AppCompatActivity implements AdapterVie
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+                    Log.d("hello",exception.toString());
                     // Handle unsuccessful uploads
+
                     Toast.makeText(SocialMediaActivity.this, exception.toString(), Toast.LENGTH_LONG).show();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
