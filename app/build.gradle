@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.firebaseapp'
+    namespace 'com.rohan.snapsphere'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.firebaseapp"
+        applicationId "com.rohan.snapsphere"
         minSdk 21
         targetSdk 33
         versionCode 1

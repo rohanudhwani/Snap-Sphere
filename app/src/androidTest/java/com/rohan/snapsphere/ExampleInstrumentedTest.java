@@ -1,4 +1,4 @@
-package com.example.firebaseapp;
+package com.rohan.snapsphere;
 
 import android.content.Context;
 
