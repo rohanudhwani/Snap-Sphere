@@ -1,26 +1,29 @@
-# +++ Simple-Social-Media-App-Firebase +++
+# Snap Sphere
 
-"Your Social Media App" is a simple yet engaging social media application that's built using Android Studio, backed by Firebase. Its primary purpose is to allow users to connect with others and share their memorable moments in the form of pictures.
-
-# --- Key Features ---
-
-1. **^^ User Registration (Sign Up) ^^**
-   You can easily sign up for the application using a valid email address and password.
-
-2. **^^ User Authentication (Login) ^^**
-   After successful registration, you can login into the application using the registered email address and password.
-
-3. **^^ Share Pictures ^^**
-   Once you are logged in, you can share your pictures with all other users registered in the app. Just choose the picture you want to share and post it. It's that simple!
-
- Technical Specifications:
-
-Platform: Android 9 (Native)
-Programming Language: Java (JDK-20)
-Development Environment: Android Studio 2022.2.1.20
-Database: Firebase
+Snap Sphere is a social media app that lets you connect with others and share your favorite moments through pictures. Join our vibrant community and start capturing and cherishing memories!
+<br/><br/>
+[![Play Store](https://img.shields.io/badge/Download%20on-Google%20Play-green)](https://play.google.com/store/apps/details?id=com.rohan.snapsphere)
 
 
+## Features
 
+- **User Registration and Authentication:** Sign up securely and log in to explore and share moments.
+- **Picture Sharing:** Share your favorite memories through pictures with the entire Snap Sphere community.
 
-This app was developed in order to learn android studio and Firebase Database.
+## Installation
+
+You can download Snap Sphere on Google Play. Simply follow these steps:
+
+1. **Visit the [Play Store](https://play.google.com/store/apps/details?id=com.rohan.snapsphere).**
+2. Click on the "Install" button.
+3. Once installed, open the app and sign up or log in to start sharing your moments!
+
+## Privacy Policy
+
+Snap Sphere is committed to protecting your privacy. For details, read our [![Privacy Policy](https://img.shields.io/badge/Privacy%20Policy-Read%20Here-blue)](https://sites.google.com/view/snap-sphere/home).
+
+## Feedback and Support
+
+We value your feedback! If you encounter any issues or have suggestions for improvement, please reach out to us at [support@snapsphere.com](mailto:support@snapsphere.com).
+
+Thank you for being part of the Snap Sphere community!
